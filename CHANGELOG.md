@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.7 — Selection and workspace refinements
+
+- Kept the cingulate network at its intended stroke width while hovered or selected, eliminating the apparent selection flicker.
+- Moved safety and illustration guidance into a single expandable disclosure so the observed-event and anatomy panels have more room.
+
 ## v0.6 — Seagull baseline stabilization
 
 - Preserved the deployed v0.5 brain illustration and live interaction model.

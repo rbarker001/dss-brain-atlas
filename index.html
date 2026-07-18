@@ -77,8 +77,13 @@
 <aside class="side">
 <section class="card search" aria-labelledby="eventsHeading"><div class="eyebrow" id="eventsHeading">Choose an observed event</div><label class="sr-only" for="search">Search observed events</label><input id="search" placeholder="Search: staring, speech pause, jerking..." autocomplete="off"/><div class="events" id="events"></div></section>
 <section class="card info" aria-live="polite"><div class="info-tabs" role="tablist" aria-label="Information type"><button class="info-tab active" id="anatomyTab" role="tab" aria-selected="true">Anatomy</button><button class="info-tab" id="eventTab" role="tab" aria-selected="false">Observed event</button></div><div id="contextBanner" class="context-banner"><strong>Anatomy mode:</strong> Click any colored brain region. The description and seizure-related factors appear here.</div><div class="eyebrow" id="eyebrow">Orientation</div><h2 id="regionTitle">Human Brain, Lateral View</h2><p id="description">Select a colored brain region or choose an observed event. The brain highlight and explanation update together while remaining on screen.</p><div class="facts" id="facts"><div class="fact"><b>How to use</b><span>Tap a lobe to review anatomy, choose an observed event, or open the staged network sequence.</span></div><div class="fact"><b>Clinical boundary</b><span>This tool supports observation and education. It does not diagnose seizures or epilepsy.</span></div></div></section>
-<section class="card notice"><b>Safety:</b> New prolonged unresponsiveness, convulsive activity lasting five minutes or more, repeated events without recovery, major injury, breathing difficulty, or a first suspected seizure requires urgent clinical evaluation.</section>
-<section class="credits">Illustration and interface are original for this prototype. Neuroanatomy is simplified for education and requires clinical validation before public deployment.</section>
+<details class="card notes-disclosure">
+<summary>Safety &amp; illustration notes</summary>
+<div class="notes-content">
+<p><b>Safety:</b> New prolonged unresponsiveness, convulsive activity lasting five minutes or more, repeated events without recovery, major injury, breathing difficulty, or a first suspected seizure requires urgent clinical evaluation.</p>
+<p><b>Illustration:</b> Illustration and interface are original for this prototype. Neuroanatomy is simplified for education and requires clinical validation before public deployment.</p>
+</div>
+</details>
 </aside>
 </main>
 <script type="module" src="js/app.js"></script>
