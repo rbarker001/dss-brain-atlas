@@ -1,24 +1,25 @@
-# DSS Brain Atlas
+# DSS Brain Atlas v0.6
 
-Interactive educational prototype for the Dementia Seizure Spectrum™ (DSS) Framework.
+Static, GitHub- and Netlify-ready educational prototype for exploring dementia-related seizure anatomy, observable events, mimics, and a staged example network sequence.
 
-## Run locally
+## Deploy
 
-Open `index.html` in a modern browser.
+Netlify requires no build command. Set the publish directory to the repository root (`.`).
 
-## Deploy to Netlify
+## Structure
 
-1. Create a new GitHub repository named `dss-brain-atlas`.
-2. Upload the contents of this folder so `index.html` is at the repository root.
-3. In Netlify, choose **Add new site** → **Import an existing project** → **GitHub**.
-4. Select the repository.
-5. Leave the build command blank.
-6. Set the publish directory to `.` if Netlify asks for one.
-7. Deploy the site.
+- `index.html` — accessible application shell and interactive brain illustration
+- `css/styles.css` — Seagull Health visual system and responsive layout
+- `js/app.js` — interface behavior and state
+- `js/data/anatomy.js` — anatomy descriptions and seizure-related factors
+- `js/data/events.js` — observed-event interpretation content
+- `js/data/sequence.js` — narrated network-sequence stages
 
-## Current project structure
+## Clinical boundary
 
-- `index.html` — complete self-contained application
-- `README.md` — setup and deployment instructions
+This prototype is educational and non-diagnostic. Its simplified neuroanatomy and clinical content require independent clinical, accessibility, usability, and claims review before public clinical deployment.
 
-This version intentionally keeps the application in a single HTML file so the current behavior and styling remain intact during the first deployment. The code can be modularized after the deployed baseline is verified.
+## Brand colors
+
+- Seagull Orange: `#ef7835`
+- Seagull Navy: `#112356`
