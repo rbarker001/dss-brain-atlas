@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.9.1 — Header refinement
+
+- Removed the redundant dementia-related seizure education subtitle from the branded header.
+
 ## v0.9 — Seagull Health branding
 
 - Added the supplied Seagull Health logo to the product header and footer.
