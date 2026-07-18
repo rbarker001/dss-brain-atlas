@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.9.2 — DSS purpose and positioning
+
+- Expanded DSS as Dementia Seizure Spectrum in the hero.
+- Reframed the headline and introduction to explain what the atlas does, why it was created, and its educational boundary.
+
 ## v0.9.1 — Header refinement
 
 - Removed the redundant dementia-related seizure education subtitle from the branded header.
