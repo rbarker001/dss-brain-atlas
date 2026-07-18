@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.9 — Seagull Health branding
+
+- Added the supplied Seagull Health logo to the product header and footer.
+- Added Seagull Health ownership, copyright, and educational-prototype information.
+- Preserved the clean light-theme hierarchy while strengthening the relationship between the company and DSS Brain Atlas.
+
 ## v0.8 — Guided light-theme redesign
 
 - Rebuilt the page as a clean light-theme learning workspace centered on the existing brain illustration.
