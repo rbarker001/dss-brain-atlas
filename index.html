@@ -4,87 +4,133 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <title>DSS Brain Atlas | Dementia-related seizure education</title>
-<meta name="description" content="Explore brain anatomy, dementia-related seizure factors, observed events, and an explained example network sequence." />
-<link rel="stylesheet" href="css/styles.css" />
+<meta name="description" content="Explore brain anatomy, observed events, and an explained example seizure-network sequence." />
+<link rel="stylesheet" href="css/styles.css?v=8" />
 </head>
 <body>
-<header><div class="brand"><div class="mark" aria-hidden="true">DSS</div><div><div class="title">DSS Brain Atlas</div><div class="sub">Dementia-related seizure education prototype</div></div></div></header>
-<main>
-<section class="card viewer">
-<div class="toolbar">
-<button class="active" data-view="lobes" aria-pressed="true">Lobe view</button><button data-view="internal" aria-pressed="false">Internal structures</button><button data-view="sequence" aria-pressed="false">Example network sequence</button><button id="reset">Reset</button>
-</div>
-<div class="brain-wrap">
-<svg class="brain-svg" viewBox="0 0 1000 720" role="img" aria-label="Interactive lateral illustration of the human brain">
-<defs>
-<linearGradient id="frontG" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f49aa7"/><stop offset="1" stop-color="#c75f75"/></linearGradient>
-<linearGradient id="parG" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#78c9e8"/><stop offset="1" stop-color="#3c87b3"/></linearGradient>
-<linearGradient id="tempG" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#9bd88b"/><stop offset="1" stop-color="#4b9a66"/></linearGradient>
-<linearGradient id="occG" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f3cf70"/><stop offset="1" stop-color="#d49335"/></linearGradient>
-<linearGradient id="cerG" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#c8a6e8"/><stop offset="1" stop-color="#785ba6"/></linearGradient>
-<linearGradient id="stemG" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e7c99a"/><stop offset="1" stop-color="#a98252"/></linearGradient>
-<filter id="glow"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-</defs>
-<!-- Anatomically recognizable silhouette divided into lobes -->
-<path class="region" data-region="frontal" fill="url(#frontG)" stroke="#7a3b4d" stroke-width="4" d="M116 332C78 278 89 199 139 145C193 86 280 62 374 69C445 74 506 99 552 142C575 165 589 194 586 224C581 270 542 295 506 319C470 343 446 373 431 411C406 469 347 500 274 489C206 478 151 426 116 332Z"/>
-<path class="region" data-region="parietal" fill="url(#parG)" stroke="#285d7c" stroke-width="4" d="M374 69C494 59 626 80 722 139C774 171 811 218 819 269C826 318 806 357 768 382C730 408 686 413 643 400C604 388 568 367 530 348C510 338 495 329 506 319C542 295 581 270 586 224C589 194 575 165 552 142C506 99 445 74 374 69Z"/>
-<path class="region" data-region="occipital" fill="url(#occG)" stroke="#94661c" stroke-width="4" d="M722 139C804 159 866 205 890 270C913 333 898 402 852 452C823 483 789 495 755 475C726 458 713 424 720 393C726 369 744 354 768 382C806 357 826 318 819 269C811 218 774 171 722 139Z"/>
-<path class="region" data-region="temporal" fill="url(#tempG)" stroke="#2e6844" stroke-width="4" d="M431 411C454 365 490 336 530 348C568 367 604 388 643 400C686 413 730 408 768 382C744 354 726 369 720 393C713 424 726 458 755 475C730 514 676 547 607 559C522 574 430 554 355 516C323 500 313 484 335 481C382 477 413 446 431 411Z"/>
-<path class="region" data-region="cerebellum" fill="url(#cerG)" stroke="#574078" stroke-width="4" d="M694 478C757 455 837 466 876 518C906 558 898 613 851 646C799 683 717 673 675 625C643 588 649 527 694 478Z"/>
-<path class="region" data-region="brainstem" fill="url(#stemG)" stroke="#725735" stroke-width="4" d="M604 548C640 550 668 568 678 598C686 622 674 643 657 661C643 676 639 697 639 716L579 716C580 684 578 658 567 638C553 613 551 587 566 565C575 552 590 547 604 548Z"/>
-<!-- detailed sulci / gyri -->
-<g class="gyri">
-<path d="M151 289C178 247 214 237 250 250C278 260 300 251 315 225"/><path d="M133 338C181 322 224 328 253 355C278 378 315 383 343 366"/><path d="M169 181C206 143 259 133 302 153C338 170 372 162 396 132"/><path d="M240 95C274 115 293 139 295 173"/><path d="M350 89C384 115 399 147 391 183"/><path d="M421 92C454 125 460 159 444 196"/><path d="M485 117C518 143 531 174 519 204"/><path d="M570 111C609 131 631 162 624 198"/><path d="M645 116C684 143 699 176 684 211"/><path d="M725 157C755 188 762 225 749 258"/><path d="M795 211C831 240 842 276 828 309"/><path d="M842 293C867 325 861 359 840 386"/><path d="M791 433C817 442 841 433 856 408"/><path d="M675 424C642 447 625 474 631 505"/><path d="M596 403C560 430 551 461 568 491"/><path d="M514 390C486 416 479 450 493 478"/><path d="M429 434C405 462 406 489 430 510"/><path d="M360 448C339 460 321 461 300 450"/>
-</g>
-<!-- cerebellar folia -->
-<g class="gyri" stroke="#4e3a70" opacity=".8"><path d="M688 518C738 493 813 498 859 532"/><path d="M673 545C727 520 819 528 877 562"/><path d="M667 577C730 548 821 559 879 590"/><path d="M677 610C739 585 817 594 858 620"/><path d="M705 638C753 623 808 626 836 640"/></g>
-<!-- internal overlay -->
-<g id="internal" opacity="0" pointer-events="none">
-<path data-region="hippocampus" class="region" d="M494 451C529 423 577 427 603 457C615 472 607 493 590 501C558 517 520 503 494 480C484 471 484 459 494 451Z" fill="#ff8ac2" stroke="#8d3b68" stroke-width="4"/>
-<ellipse data-region="thalamus" class="region" cx="587" cy="369" rx="39" ry="31" fill="#9f8cff" stroke="#55458f" stroke-width="4"/>
-<path data-region="cingulate" class="region" d="M450 267C507 220 603 208 677 242" fill="none" stroke="#ffd166" stroke-width="18" stroke-linecap="round"/>
-</g>
-<g id="internalLabels" class="internal-label">
-<line class="label-line" x1="520" y1="466" x2="386" y2="520"/><rect class="label-bg" x="212" y="496" width="185" height="42"/><text class="label" x="229" y="526">Hippocampus</text>
-<line class="label-line" x1="587" y1="369" x2="736" y2="352"/><rect class="label-bg" x="730" y="328" width="135" height="42"/><text class="label" x="747" y="358">Thalamus</text>
-<line class="label-line" x1="556" y1="238" x2="743" y2="196"/><rect class="label-bg" x="730" y="166" width="190" height="42"/><text class="label" x="747" y="196">Cingulate network</text>
-</g>
-<!-- static, staged educational network sequence -->
-<path id="path1" class="network-path" d="M537 468C560 445 578 428 596 414"/>
-<path id="path2" class="network-path" d="M596 414C623 397 645 389 668 379"/>
-<path id="path3" class="network-path" d="M668 379C715 360 754 329 787 291"/>
-<g id="node1" class="network-node"><circle cx="537" cy="468" r="21"/><text x="537" y="468">1</text></g>
-<g id="node2" class="network-node"><circle cx="596" cy="414" r="21"/><text x="596" y="414">2</text></g>
-<g id="node3" class="network-node"><circle cx="668" cy="379" r="21"/><text x="668" y="379">3</text></g>
-<g id="node4" class="network-node"><circle cx="787" cy="291" r="21"/><text x="787" y="291">4</text></g>
-<!-- labels -->
-<g id="labels">
-<line class="label-line" x1="272" y1="240" x2="205" y2="172"/><rect class="label-bg" x="95" y="135" width="126" height="42"/><text class="label" x="112" y="164">Frontal</text>
-<line class="label-line" x1="625" y1="213" x2="650" y2="137"/><rect class="label-bg" x="593" y="95" width="132" height="42"/><text class="label" x="610" y="125">Parietal</text>
-<line class="label-line" x1="607" y1="474" x2="586" y2="535"/><rect class="label-bg" x="486" y="536" width="145" height="42"/><text class="label" x="503" y="566">Temporal</text>
-<line class="label-line" x1="820" y1="323" x2="897" y2="304"/><rect class="label-bg" x="833" y="261" width="150" height="42"/><text class="label" x="851" y="291">Occipital</text>
-</g>
-</svg>
-<div id="internalKey" class="internal-key"><b>Internal structures</b>Tap a labeled structure to see its normal role, seizure-network relevance, and dementia-related considerations.</div>
-<div class="legend"><span><i class="dot" style="background:#dd7187"></i>Frontal</span><span><i class="dot" style="background:#5aa9cf"></i>Parietal</span><span><i class="dot" style="background:#67b878"></i>Temporal</span><span><i class="dot" style="background:#e5ad45"></i>Occipital</span><span><i class="dot" style="background:#9c7bc6"></i>Cerebellum</span></div>
-</div>
-<div id="sequencePanel" class="sequence-panel">
-<div class="sequence-head"><div><div class="sequence-step" id="sequenceStep">Step 1 of 5</div><div class="sequence-title" id="sequenceTitle">Network vulnerability</div></div></div>
-<div class="sequence-copy" id="sequenceCopy">Dementia-related synaptic dysfunction, neuronal loss, impaired inhibition, inflammation, or vascular injury may increase local network excitability.</div>
-<div class="sequence-controls"><button id="prevStep">Previous</button><button id="nextStep">Next</button><button id="exitSequence">Exit sequence</button></div>
-</div>
-</section>
-<aside class="side">
-<section class="card search" aria-labelledby="eventsHeading"><div class="eyebrow" id="eventsHeading">Choose an observed event</div><label class="sr-only" for="search">Search observed events</label><input id="search" placeholder="Search: staring, speech pause, jerking..." autocomplete="off"/><div class="events" id="events"></div></section>
-<section class="card info" aria-live="polite"><div class="info-tabs" role="tablist" aria-label="Information type"><button class="info-tab active" id="anatomyTab" role="tab" aria-selected="true">Anatomy</button><button class="info-tab" id="eventTab" role="tab" aria-selected="false">Observed event</button></div><div id="contextBanner" class="context-banner"><strong>Anatomy mode:</strong> Click any colored brain region. The description and seizure-related factors appear here.</div><div class="eyebrow" id="eyebrow">Orientation</div><h2 id="regionTitle">Human Brain, Lateral View</h2><p id="description">Select a colored brain region or choose an observed event. The brain highlight and explanation update together while remaining on screen.</p><div class="facts" id="facts"><div class="fact"><b>How to use</b><span>Tap a lobe to review anatomy, choose an observed event, or open the staged network sequence.</span></div><div class="fact"><b>Clinical boundary</b><span>This tool supports observation and education. It does not diagnose seizures or epilepsy.</span></div></div></section>
-<details class="card notes-disclosure">
-<summary>Safety &amp; illustration notes</summary>
-<div class="notes-content">
-<p><b>Safety:</b> New prolonged unresponsiveness, convulsive activity lasting five minutes or more, repeated events without recovery, major injury, breathing difficulty, or a first suspected seizure requires urgent clinical evaluation.</p>
-<p><b>Illustration:</b> Illustration and interface are original for this prototype. Neuroanatomy is simplified for education and requires clinical validation before public deployment.</p>
-</div>
-</details>
-</aside>
+<header class="site-header">
+  <a class="brand" href="#main" aria-label="DSS Brain Atlas home"><span class="mark" aria-hidden="true">DSS</span><span><b>DSS Brain Atlas</b><small>Dementia-related seizure education</small></span></a>
+  <div class="boundary">Educational · Not diagnostic</div>
+</header>
+
+<main id="main">
+  <section class="atlas" aria-labelledby="workspaceTitle">
+    <div class="workspace-head">
+      <div>
+        <p class="kicker">Interactive brain guide</p>
+        <h1 id="workspaceTitle">See the anatomy. Connect the observation.</h1>
+        <p class="lede">Choose a view, then select the brain or an observed event. The explanation stays beside the illustration.</p>
+      </div>
+      <button class="reset-button" id="reset">Start over</button>
+    </div>
+
+    <div class="mode-switch" role="group" aria-label="Brain view">
+      <button class="mode active" data-view="lobes" aria-pressed="true"><span>1</span><b>Lobes</b><small>Explore outer anatomy</small></button>
+      <button class="mode" data-view="internal" aria-pressed="false"><span>2</span><b>Internal structures</b><small>See deeper networks</small></button>
+      <button class="mode" data-view="sequence" aria-pressed="false"><span>3</span><b>Example sequence</b><small>Follow five stages</small></button>
+    </div>
+
+    <div class="workspace">
+      <section class="visual-panel" aria-label="Interactive brain illustration">
+        <div class="view-cue" id="viewCue"><b>Lobe view</b><span>Select any colored region.</span></div>
+        <div class="brain-wrap">
+          <svg class="brain-svg" id="brainSvg" viewBox="0 0 1000 720" role="img" aria-label="Interactive lateral illustration of the human brain">
+            <defs>
+              <linearGradient id="frontG" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f49aa7"/><stop offset="1" stop-color="#c75f75"/></linearGradient>
+              <linearGradient id="parG" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#78c9e8"/><stop offset="1" stop-color="#3c87b3"/></linearGradient>
+              <linearGradient id="tempG" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#9bd88b"/><stop offset="1" stop-color="#4b9a66"/></linearGradient>
+              <linearGradient id="occG" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f3cf70"/><stop offset="1" stop-color="#d49335"/></linearGradient>
+              <linearGradient id="cerG" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#c8a6e8"/><stop offset="1" stop-color="#785ba6"/></linearGradient>
+              <linearGradient id="stemG" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e7c99a"/><stop offset="1" stop-color="#a98252"/></linearGradient>
+              <filter id="glow"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            </defs>
+
+            <path class="region" data-region="frontal" fill="url(#frontG)" stroke="#7a3b4d" stroke-width="4" d="M116 332C78 278 89 199 139 145C193 86 280 62 374 69C445 74 506 99 552 142C575 165 589 194 586 224C581 270 542 295 506 319C470 343 446 373 431 411C406 469 347 500 274 489C206 478 151 426 116 332Z"/>
+            <path class="region" data-region="parietal" fill="url(#parG)" stroke="#285d7c" stroke-width="4" d="M374 69C494 59 626 80 722 139C774 171 811 218 819 269C826 318 806 357 768 382C730 408 686 413 643 400C604 388 568 367 530 348C510 338 495 329 506 319C542 295 581 270 586 224C589 194 575 165 552 142C506 99 445 74 374 69Z"/>
+            <path class="region" data-region="occipital" fill="url(#occG)" stroke="#94661c" stroke-width="4" d="M722 139C804 159 866 205 890 270C913 333 898 402 852 452C823 483 789 495 755 475C726 458 713 424 720 393C726 369 744 354 768 382C806 357 826 318 819 269C811 218 774 171 722 139Z"/>
+            <path class="region" data-region="temporal" fill="url(#tempG)" stroke="#2e6844" stroke-width="4" d="M431 411C454 365 490 336 530 348C568 367 604 388 643 400C686 413 730 408 768 382C744 354 726 369 720 393C713 424 726 458 755 475C730 514 676 547 607 559C522 574 430 554 355 516C323 500 313 484 335 481C382 477 413 446 431 411Z"/>
+            <path class="region" data-region="cerebellum" fill="url(#cerG)" stroke="#574078" stroke-width="4" d="M694 478C757 455 837 466 876 518C906 558 898 613 851 646C799 683 717 673 675 625C643 588 649 527 694 478Z"/>
+            <path class="region" data-region="brainstem" fill="url(#stemG)" stroke="#725735" stroke-width="4" d="M604 548C640 550 668 568 678 598C686 622 674 643 657 661C643 676 639 697 639 716L579 716C580 684 578 658 567 638C553 613 551 587 566 565C575 552 590 547 604 548Z"/>
+
+            <g class="gyri"><path d="M151 289C178 247 214 237 250 250C278 260 300 251 315 225"/><path d="M133 338C181 322 224 328 253 355C278 378 315 383 343 366"/><path d="M169 181C206 143 259 133 302 153C338 170 372 162 396 132"/><path d="M240 95C274 115 293 139 295 173"/><path d="M350 89C384 115 399 147 391 183"/><path d="M421 92C454 125 460 159 444 196"/><path d="M485 117C518 143 531 174 519 204"/><path d="M570 111C609 131 631 162 624 198"/><path d="M645 116C684 143 699 176 684 211"/><path d="M725 157C755 188 762 225 749 258"/><path d="M795 211C831 240 842 276 828 309"/><path d="M842 293C867 325 861 359 840 386"/><path d="M791 433C817 442 841 433 856 408"/><path d="M675 424C642 447 625 474 631 505"/><path d="M596 403C560 430 551 461 568 491"/><path d="M514 390C486 416 479 450 493 478"/><path d="M429 434C405 462 406 489 430 510"/><path d="M360 448C339 460 321 461 300 450"/></g>
+            <g class="gyri cerebellar"><path d="M688 518C738 493 813 498 859 532"/><path d="M673 545C727 520 819 528 877 562"/><path d="M667 577C730 548 821 559 879 590"/><path d="M677 610C739 585 817 594 858 620"/><path d="M705 638C753 623 808 626 836 640"/></g>
+
+            <g id="internal" class="internal-layer">
+              <path data-region="hippocampus" class="region" d="M494 451C529 423 577 427 603 457C615 472 607 493 590 501C558 517 520 503 494 480C484 471 484 459 494 451Z" fill="#ff8ac2" stroke="#8d3b68" stroke-width="4"/>
+              <ellipse data-region="thalamus" class="region" cx="587" cy="369" rx="39" ry="31" fill="#9f8cff" stroke="#55458f" stroke-width="4"/>
+              <path data-region="cingulate" class="region" d="M450 267C507 220 603 208 677 242" fill="none" stroke="#f2a900" stroke-width="18" stroke-linecap="round"/>
+            </g>
+
+            <g id="sequenceRoute" class="sequence-route" aria-hidden="true">
+              <path class="route-base" d="M537 468C560 445 578 428 596 414C623 397 645 389 668 379C715 360 754 329 787 291"/>
+              <path id="path1" class="route-step" d="M537 468C560 445 578 428 596 414"/>
+              <path id="path2" class="route-step" d="M596 414C623 397 645 389 668 379"/>
+              <path id="path3" class="route-step" d="M668 379C715 360 754 329 787 291"/>
+              <g id="node1" class="route-node"><circle cx="537" cy="468" r="25"/><text x="537" y="468">1</text></g>
+              <g id="node2" class="route-node"><circle cx="596" cy="414" r="25"/><text x="596" y="414">2</text></g>
+              <g id="node3" class="route-node"><circle cx="668" cy="379" r="25"/><text x="668" y="379">3</text></g>
+              <g id="node4" class="route-node"><circle cx="787" cy="291" r="25"/><text x="787" y="291">4</text></g>
+              <g id="recoveryMark" class="recovery-mark"><circle cx="650" cy="410" r="135"/><circle cx="650" cy="410" r="95"/><text x="650" y="418">RECOVERY</text></g>
+            </g>
+
+            <g id="outerLabels" class="labels">
+              <g><line x1="272" y1="240" x2="205" y2="172"/><rect x="95" y="135" width="126" height="42"/><text x="112" y="164">Frontal</text></g>
+              <g><line x1="625" y1="213" x2="650" y2="137"/><rect x="593" y="95" width="132" height="42"/><text x="610" y="125">Parietal</text></g>
+              <g><line x1="607" y1="474" x2="586" y2="535"/><rect x="486" y="536" width="145" height="42"/><text x="503" y="566">Temporal</text></g>
+              <g><line x1="820" y1="323" x2="897" y2="304"/><rect x="833" y="261" width="150" height="42"/><text x="851" y="291">Occipital</text></g>
+              <g><line x1="804" y1="555" x2="910" y2="568"/><rect x="795" y="570" width="180" height="42"/><text x="812" y="599">Cerebellum</text></g>
+              <g><line x1="616" y1="631" x2="500" y2="654"/><rect x="374" y="642" width="142" height="42"/><text x="391" y="671">Brainstem</text></g>
+            </g>
+
+            <g id="internalLabels" class="labels internal-labels">
+              <g><line x1="520" y1="466" x2="386" y2="520"/><rect x="212" y="496" width="185" height="42"/><text x="229" y="526">Hippocampus</text></g>
+              <g><line x1="587" y1="369" x2="736" y2="352"/><rect x="730" y="328" width="135" height="42"/><text x="747" y="358">Thalamus</text></g>
+              <g><line x1="556" y1="238" x2="742" y2="196"/><rect x="704" y="154" width="270" height="48"/><text x="722" y="186">Cingulate network</text></g>
+            </g>
+          </svg>
+        </div>
+
+        <div id="sequencePanel" class="sequence-panel" hidden>
+          <div class="sequence-intro"><div><span id="sequenceStep">Step 1 of 5</span><h2 id="sequenceTitle">Network vulnerability</h2></div><p id="sequenceCopy"></p></div>
+          <div class="timeline" id="timeline" aria-label="Sequence steps"></div>
+          <div class="sequence-actions"><button id="prevStep">← Previous</button><button id="nextStep">Next →</button></div>
+        </div>
+      </section>
+
+      <aside class="guide-panel">
+        <div class="guide-tabs" role="tablist" aria-label="Guide content">
+          <button class="guide-tab active" id="anatomyTab" role="tab" aria-selected="true">Anatomy</button>
+          <button class="guide-tab" id="eventTab" role="tab" aria-selected="false">Observed events</button>
+        </div>
+
+        <section id="eventChooser" class="event-chooser" hidden aria-labelledby="eventsHeading">
+          <div class="section-head"><div><p class="kicker">Start with what you saw</p><h2 id="eventsHeading">Choose an observed event</h2></div></div>
+          <label class="search-label" for="search">Search events</label>
+          <input id="search" type="search" placeholder="Try “staring” or “speech”" autocomplete="off" />
+          <div class="events" id="events"></div>
+        </section>
+
+        <section id="explanation" class="explanation" aria-live="polite">
+          <div class="context" id="contextBanner"><span>Explore anatomy</span>Select a colored brain region to begin.</div>
+          <p class="kicker" id="eyebrow">Orientation</p>
+          <h2 id="regionTitle">Human brain, lateral view</h2>
+          <p class="description" id="description">This simplified illustration connects anatomy with observable events while keeping uncertainty visible.</p>
+          <div class="facts" id="facts"></div>
+        </section>
+
+        <details class="notes-disclosure">
+          <summary>Safety, scope &amp; illustration notes</summary>
+          <div class="notes-content">
+            <p><b>Seek urgent evaluation</b> for new prolonged unresponsiveness, convulsive activity lasting five minutes or more, repeated events without recovery, major injury, breathing difficulty, or a first suspected seizure.</p>
+            <p><b>Scope</b> This educational tool does not diagnose seizures or epilepsy.</p>
+            <p><b>Illustration</b> The original anatomy is simplified and requires clinical validation before public deployment.</p>
+          </div>
+        </details>
+      </aside>
+    </div>
+  </section>
 </main>
-<script type="module" src="js/app.js"></script>
-</body></html>
+
+<script type="module" src="js/app.js?v=8"></script>
+</body>
+</html>

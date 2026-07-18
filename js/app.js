@@ -2,21 +2,98 @@ import { ANATOMY } from './data/anatomy.js';
 import { EVENTS } from './data/events.js';
 import { SEQUENCE } from './data/sequence.js';
 
-const title=document.getElementById('regionTitle'),desc=document.getElementById('description'),eyebrow=document.getElementById('eyebrow'),facts=document.getElementById('facts'),context=document.getElementById('contextBanner');
-let selectedRegion=null,selectedEvent=null,currentMode='anatomy',sequenceIndex=0;
-function renderFacts(items){facts.innerHTML=items.map(f=>`<div class="fact"><b>${f[0]}</b><span>${f[1]}</span></div>`).join('');}
-function setTab(mode){currentMode=mode;const anatomy=document.getElementById('anatomyTab'),event=document.getElementById('eventTab');anatomy.classList.toggle('active',mode==='anatomy');event.classList.toggle('active',mode==='event');anatomy.setAttribute('aria-selected',mode==='anatomy');event.setAttribute('aria-selected',mode==='event');}
-function highlightRegion(id){document.querySelectorAll('.region').forEach(x=>x.classList.toggle('active',x.dataset.region===id));selectedRegion=id;}
-function showAnatomy(id){const d=ANATOMY[id];if(!d)return;setTab('anatomy');highlightRegion(id);title.textContent=d.title;desc.textContent=d.desc;eyebrow.textContent=d.eye;renderFacts(d.facts);context.innerHTML='<strong>Anatomy mode:</strong> You selected '+d.title+'. Click another region to compare its normal role and seizure-related factors.';}
-function showEvent(ev,el){selectedEvent=ev;setTab('event');highlightRegion(ev.region);document.querySelectorAll('.event').forEach(x=>x.classList.toggle('active',x===el));title.textContent=ev.name;eyebrow.textContent='Observed event interpretation';desc.textContent=ev.summary;renderFacts([['Why it may raise seizure concern',ev.factors],['Important mimics',ev.mimics],['What to document',ev.document],['Clinical boundary','This pattern is not diagnostic. Evaluation depends on history, examination, medication and metabolic review, and testing when clinically indicated.']]);context.innerHTML='<strong>Observed-event mode:</strong> The highlighted anatomy is one plausible network association, not proof of seizure onset.';}
-document.querySelectorAll('.region').forEach(x=>{x.setAttribute('tabindex','0');x.setAttribute('role','button');x.setAttribute('aria-label',`Show ${ANATOMY[x.dataset.region]?.title || x.dataset.region} details`);x.addEventListener('click',()=>showAnatomy(x.dataset.region));x.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();showAnatomy(x.dataset.region);}});});
-const eventBox=document.getElementById('events');function renderEvents(q=''){const matches=EVENTS.filter(e=>(e.name+' '+e.summary+' '+e.mimics).toLowerCase().includes(q.toLowerCase()));eventBox.innerHTML=matches.length?matches.map(e=>`<button class="event" data-i="${EVENTS.indexOf(e)}">${e.name}<small>${e.summary}</small></button>`).join(''):'<p class="empty-state">No matching observed events.</p>';eventBox.querySelectorAll('.event').forEach(el=>el.onclick=()=>showEvent(EVENTS[+el.dataset.i],el));}renderEvents();document.getElementById('search').oninput=e=>renderEvents(e.target.value);
-document.getElementById('anatomyTab').onclick=()=>{if(selectedRegion)showAnatomy(selectedRegion);else resetInfo();};
-document.getElementById('eventTab').onclick=()=>{if(selectedEvent){const el=[...document.querySelectorAll('.event')].find(x=>+x.dataset.i===EVENTS.indexOf(selectedEvent));showEvent(selectedEvent,el);}else{setTab('event');title.textContent='Choose an observed event';eyebrow.textContent='Observed event interpretation';desc.textContent='Select an event from the list to see a possible network association, seizure-related features, mimics, and documentation priorities.';renderFacts([['Important','No observed behavior by itself confirms a seizure. Pattern, timing, recurrence, recovery, and competing explanations matter.']]);context.innerHTML='<strong>Observed-event mode:</strong> Choose an event from the list.';}};
-function setView(v){document.querySelectorAll('[data-view]').forEach(x=>{const active=x.dataset.view===v;x.classList.toggle('active',active);x.setAttribute('aria-pressed',active);});const internal=v==='internal';document.getElementById('internal').style.opacity=internal?1:0;document.getElementById('internal').style.pointerEvents=internal?'auto':'none';document.getElementById('internalLabels').classList.toggle('visible',internal);document.getElementById('internalKey').classList.toggle('visible',internal);document.getElementById('labels').style.opacity=internal?'.25':'1';document.getElementById('sequencePanel').classList.toggle('visible',v==='sequence');setNetworkVisible(v==='sequence');if(internal){showAnatomy('hippocampus');}else if(v==='sequence'){sequenceIndex=0;renderSequence();}}
-document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>setView(b.dataset.view));
-function setNetworkVisible(show){for(let i=1;i<=3;i++)document.getElementById('path'+i).classList.toggle('visible',show);for(let i=1;i<=4;i++)document.getElementById('node'+i).classList.toggle('visible',show);}
-function renderSequence(){const s=SEQUENCE[sequenceIndex];document.getElementById('sequenceStep').textContent=`Step ${sequenceIndex+1} of ${SEQUENCE.length}`;document.getElementById('sequenceTitle').textContent=s.title;document.getElementById('sequenceCopy').textContent=s.copy;for(let i=1;i<=3;i++)document.getElementById('path'+i).classList.toggle('active',i<=s.paths);for(let i=1;i<=4;i++)document.getElementById('node'+i).classList.toggle('active',i<=s.nodes);highlightRegion(s.region);setTab('anatomy');eyebrow.textContent='Example network sequence';title.textContent=s.title;desc.textContent=s.copy;renderFacts([['What the diagram means','Numbered points show a staged educational example of network recruitment. The lines do not represent a fixed pathway that every seizure follows.'],['Observable consequences','Manifestations depend on the networks involved and may include memory interruption, behavioral arrest, speech disturbance, automatisms, motor signs, or reduced responsiveness.'],['Clinical limitation','This sequence illustrates pathophysiologic concepts and cannot determine whether an observed event was a seizure.']]);context.innerHTML='<strong>Network-sequence mode:</strong> Use Previous and Next. The pathway is static and staged so each step has an explanation.';}
-document.getElementById('prevStep').onclick=()=>{sequenceIndex=Math.max(0,sequenceIndex-1);renderSequence();};document.getElementById('nextStep').onclick=()=>{sequenceIndex=Math.min(SEQUENCE.length-1,sequenceIndex+1);renderSequence();};document.getElementById('exitSequence').onclick=()=>setView('lobes');
-function resetInfo(){setTab('anatomy');selectedRegion=null;title.textContent='Human Brain, Lateral View';eyebrow.textContent='Orientation';desc.textContent='Select a colored brain region or choose an observed event. The brain highlight and explanation update together while remaining on screen.';renderFacts([['How to use','Tap a lobe to review anatomy, choose an observed event, or open the staged network sequence.'],['Clinical boundary','This tool supports observation and education. It does not diagnose seizures or epilepsy.']]);context.innerHTML='<strong>Anatomy mode:</strong> Click any colored brain region. The description and seizure-related factors appear here.';}
-document.getElementById('reset').onclick=()=>{document.querySelectorAll('.event').forEach(x=>x.classList.remove('active'));selectedEvent=null;document.getElementById('search').value='';renderEvents();document.getElementById('internal').style.opacity=0;document.getElementById('internal').style.pointerEvents='none';document.getElementById('internalLabels').classList.remove('visible');document.getElementById('internalKey').classList.remove('visible');document.getElementById('labels').style.opacity=1;document.getElementById('sequencePanel').classList.remove('visible');setNetworkVisible(false);for(let i=1;i<=3;i++)document.getElementById('path'+i).classList.remove('active');document.querySelectorAll('[data-view]').forEach(x=>{const active=x.dataset.view==='lobes';x.classList.toggle('active',active);x.setAttribute('aria-pressed',active);});document.querySelectorAll('.region').forEach(x=>x.classList.remove('active'));resetInfo();};
+const $=id=>document.getElementById(id);
+const title=$('regionTitle'),desc=$('description'),eyebrow=$('eyebrow'),facts=$('facts'),context=$('contextBanner');
+const brain=$('brainSvg'),eventBox=$('events'),eventChooser=$('eventChooser'),explanation=$('explanation');
+let selectedRegion=null,selectedEvent=null,currentTab='anatomy',currentView='lobes',sequenceIndex=0;
+
+function renderFacts(items){facts.innerHTML=items.map(([label,copy])=>`<div class="fact"><b>${label}</b><span>${copy}</span></div>`).join('');}
+function setContext(label,copy){context.innerHTML=`<span>${label}</span>${copy}`;}
+function highlightRegion(id){document.querySelectorAll('.region').forEach(el=>el.classList.toggle('active',el.dataset.region===id));selectedRegion=id;}
+function setTab(tab){
+  currentTab=tab;
+  $('anatomyTab').classList.toggle('active',tab==='anatomy');
+  $('eventTab').classList.toggle('active',tab==='event');
+  $('anatomyTab').setAttribute('aria-selected',tab==='anatomy');
+  $('eventTab').setAttribute('aria-selected',tab==='event');
+  eventChooser.hidden=tab!=='event';
+}
+
+function showAnatomy(id){
+  const item=ANATOMY[id]; if(!item)return;
+  brain.classList.remove('event-internal');
+  setTab('anatomy'); highlightRegion(id);
+  eyebrow.textContent=item.eye; title.textContent=item.title; desc.textContent=item.desc; renderFacts(item.facts);
+  setContext('Selected anatomy',`${item.title} is highlighted on the illustration. Choose another region to compare.`);
+}
+
+function showEvent(event){
+  selectedEvent=event; setTab('event'); highlightRegion(event.region);
+  brain.classList.toggle('event-internal',['hippocampus','thalamus','cingulate'].includes(event.region));
+  document.querySelectorAll('.event').forEach(el=>el.classList.toggle('active',Number(el.dataset.i)===EVENTS.indexOf(event)));
+  eyebrow.textContent='Observation guide'; title.textContent=event.name; desc.textContent=event.summary;
+  renderFacts([['Why it may raise concern',event.factors],['Important mimics',event.mimics],['What to document',event.document],['Clinical boundary','This association is a prompt for careful observation—not proof of seizure onset.']]);
+  setContext('Possible network association',`The highlighted ${ANATOMY[event.region]?.title || 'region'} is one plausible association, not a diagnosis.`);
+}
+
+function renderEvents(query=''){
+  const q=query.trim().toLowerCase();
+  const matches=EVENTS.filter(event=>(event.name+' '+event.summary+' '+event.mimics).toLowerCase().includes(q));
+  eventBox.innerHTML=matches.length?matches.map(event=>`<button class="event${event===selectedEvent?' active':''}" data-i="${EVENTS.indexOf(event)}">${event.name}</button>`).join(''):'<p class="empty-state">No matching observed events.</p>';
+  eventBox.querySelectorAll('.event').forEach(button=>button.addEventListener('click',()=>showEvent(EVENTS[Number(button.dataset.i)])));
+}
+
+function setView(view){
+  currentView=view;
+  brain.classList.remove('event-internal');
+  document.querySelectorAll('.mode').forEach(button=>{const active=button.dataset.view===view;button.classList.toggle('active',active);button.setAttribute('aria-pressed',active);});
+  brain.classList.toggle('internal-view',view==='internal'); brain.classList.toggle('sequence-view',view==='sequence');
+  $('sequencePanel').hidden=view!=='sequence';
+  if(view==='lobes'){
+    $('viewCue').innerHTML='<b>Lobe view</b><span>Select any colored region.</span>';
+    setTab('anatomy'); showAnatomy(selectedRegion && !['hippocampus','thalamus','cingulate'].includes(selectedRegion)?selectedRegion:'frontal');
+  }else if(view==='internal'){
+    $('viewCue').innerHTML='<b>Internal structures</b><span>Outer lobes remain visible for orientation.</span>';
+    showAnatomy(['hippocampus','thalamus','cingulate'].includes(selectedRegion)?selectedRegion:'hippocampus');
+  }else{
+    $('viewCue').innerHTML='<b>Example sequence</b><span>Use the five-stage timeline to see what changes.</span>';
+    sequenceIndex=0; renderSequence();
+  }
+}
+
+function renderTimeline(){
+  $('timeline').innerHTML=SEQUENCE.map((step,index)=>`<button data-step="${index}" class="${index<sequenceIndex?'complete ':''}${index===sequenceIndex?'active':''}" aria-current="${index===sequenceIndex?'step':'false'}"><span>STEP ${index+1}</span><b>${step.title}</b></button>`).join('');
+  $('timeline').querySelectorAll('button').forEach(button=>button.addEventListener('click',()=>{sequenceIndex=Number(button.dataset.step);renderSequence();}));
+}
+
+function renderSequence(){
+  const step=SEQUENCE[sequenceIndex]; setTab('anatomy');
+  brain.className.baseVal=`brain-svg sequence-view sequence-stage-${sequenceIndex+1}`;
+  $('sequenceStep').textContent=`Step ${sequenceIndex+1} of ${SEQUENCE.length}`; $('sequenceTitle').textContent=step.title; $('sequenceCopy').textContent=step.copy;
+  for(let i=1;i<=3;i++)$('path'+i).classList.toggle('complete',i<=step.paths);
+  for(let i=1;i<=4;i++){
+    const node=$('node'+i); node.classList.toggle('complete',i<=step.nodes); node.classList.toggle('current',i===Math.max(1,step.nodes));
+  }
+  highlightRegion(step.region); renderTimeline();
+  $('prevStep').disabled=sequenceIndex===0; $('nextStep').disabled=sequenceIndex===SEQUENCE.length-1;
+  eyebrow.textContent='Example network sequence'; title.textContent=step.title; desc.textContent=step.copy;
+  const visual=sequenceIndex===0?'The first numbered site marks a vulnerable network.':sequenceIndex===4?'Blue recovery rings replace the active yellow pathway to show post-event suppression and recovery.':'Solid yellow segments and numbered sites show how far this example has progressed.';
+  renderFacts([['What changed on the brain',visual],['How to read this','This is a staged educational example. It is not a fixed pathway and cannot reconstruct an observed event.']]);
+  setContext('Sequence mode',`Stage ${sequenceIndex+1} is shown on both the timeline and brain.`);
+}
+
+document.querySelectorAll('.region').forEach(region=>{
+  region.setAttribute('tabindex','0'); region.setAttribute('role','button'); region.setAttribute('aria-label',`Show ${ANATOMY[region.dataset.region]?.title || region.dataset.region} details`);
+  region.addEventListener('click',()=>showAnatomy(region.dataset.region));
+  region.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();showAnatomy(region.dataset.region);}});
+});
+document.querySelectorAll('.mode').forEach(button=>button.addEventListener('click',()=>setView(button.dataset.view)));
+$('anatomyTab').addEventListener('click',()=>selectedRegion?showAnatomy(selectedRegion):setView(currentView));
+$('eventTab').addEventListener('click',()=>{setTab('event');if(selectedEvent)showEvent(selectedEvent);else{eyebrow.textContent='Observation guide';title.textContent='What did you notice?';desc.textContent='Choose an observed event above. The atlas will show one possible network association and the details worth documenting.';renderFacts([['Important','No observed behavior by itself confirms a seizure. Timing, recurrence, recovery, and competing explanations matter.']]);setContext('Observed events','Start with the behavior, then compare possible explanations.');}});
+$('search').addEventListener('input',event=>renderEvents(event.target.value));
+$('prevStep').addEventListener('click',()=>{if(sequenceIndex>0){sequenceIndex--;renderSequence();}});
+$('nextStep').addEventListener('click',()=>{if(sequenceIndex<SEQUENCE.length-1){sequenceIndex++;renderSequence();}});
+$('reset').addEventListener('click',()=>{selectedRegion=null;selectedEvent=null;$('search').value='';renderEvents();setView('lobes');});
+
+renderEvents();
+renderFacts([['How to begin','Choose a brain view above, select a colored region, or open Observed events.'],['Clinical boundary','This tool supports observation and education. It does not diagnose seizures or epilepsy.']]);

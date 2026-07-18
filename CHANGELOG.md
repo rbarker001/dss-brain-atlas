@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.8 — Guided light-theme redesign
+
+- Rebuilt the page as a clean light-theme learning workspace centered on the existing brain illustration.
+- Added persistent cerebellum and brainstem labels and widened the cingulate-network label.
+- Reworked anatomy and observed-event exploration into one focused guide panel.
+- Replaced the subtle sequence treatment with a clickable five-stage timeline, strong numbered pathway states, and a distinct visual recovery stage.
+- Improved responsive behavior, visible focus, reduced-motion support, orientation cues, and selection explanations.
+
 ## v0.7 — Selection and workspace refinements
 
 - Kept the cingulate network at its intended stroke width while hovered or selected, eliminating the apparent selection flicker.
