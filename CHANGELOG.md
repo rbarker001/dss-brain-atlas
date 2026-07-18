@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.9.3 — Header optical alignment
+
+- Increased the DSS Brain Atlas product-title size and weight at desktop and mobile breakpoints.
+- Optically aligned the visible Seagull Health logo mark, title, and shortened divider despite whitespace inside the source SVG.
+
 ## v0.9.2 — DSS purpose and positioning
 
 - Expanded DSS as Dementia Seizure Spectrum in the hero.
