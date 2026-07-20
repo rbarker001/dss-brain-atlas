@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.12 — Anatomical illustration refinement
+
+- Redrew the lateral lobe boundaries around a more credible central sulcus and lateral fissure relationship.
+- Extended the temporal pole, reduced the exposed occipital region, and rebuilt the cerebellum–brainstem relationship.
+- Reframed internal structures as a translucent cutaway with a corpus-callosum reference and more defensible hippocampal, thalamic, and cingulate placement.
+
 ## v0.11.1 — Ordered event domains
 
 - Grouped observed-event choices under clear DSS domain headings.
