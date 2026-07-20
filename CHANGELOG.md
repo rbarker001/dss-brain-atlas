@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.11 — Field Guide connections
+
+- Added a focused DSS Field Guide call to action to every observed-event result.
+- Kept each destination synchronized with the event's primary DSS domain mapping.
+- Hid the Field Guide action outside observed-event explanations so anatomy and sequence modes remain focused.
+
 ## v0.10 — DSS domain mapping
 
 - Mapped every observed event to a primary Dementia Seizure Spectrum domain.

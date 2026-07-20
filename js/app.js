@@ -6,6 +6,7 @@ const $=id=>document.getElementById(id);
 const title=$('regionTitle'),desc=$('description'),eyebrow=$('eyebrow'),facts=$('facts'),context=$('contextBanner');
 const brain=$('brainSvg'),eventBox=$('events'),eventChooser=$('eventChooser'),explanation=$('explanation');
 const domainBadge=$('domainBadge');
+const domainGuide=$('domainGuide');
 let selectedRegion=null,selectedEvent=null,currentTab='anatomy',currentView='lobes',sequenceIndex=0;
 
 function renderFacts(items){facts.innerHTML=items.map(([label,copy])=>`<div class="fact"><b>${label}</b><span>${copy}</span></div>`).join('');}
@@ -24,6 +25,7 @@ function showAnatomy(id){
   const item=ANATOMY[id]; if(!item)return;
   brain.classList.remove('event-internal');
   domainBadge.hidden=true;
+  domainGuide.hidden=true;
   setTab('anatomy'); highlightRegion(id);
   eyebrow.textContent=item.eye; title.textContent=item.title; desc.textContent=item.desc; renderFacts(item.facts);
   setContext('Selected anatomy',`${item.title} is highlighted on the illustration. Choose another region to compare.`);
@@ -35,6 +37,7 @@ function showEvent(event){
   brain.classList.toggle('event-internal',['hippocampus','thalamus','cingulate'].includes(event.region));
   document.querySelectorAll('.event').forEach(el=>el.classList.toggle('active',Number(el.dataset.i)===EVENTS.indexOf(event)));
   domainBadge.hidden=false;domainBadge.dataset.domain=event.domain;domainBadge.innerHTML=`<span>DSS Domain ${domain.number}</span><b>${domain.name}</b>`;
+  domainGuide.hidden=false;domainGuide.href=domain.guideUrl;domainGuide.setAttribute('aria-label',`Explore the ${domain.name} DSS Field Guide`);domainGuide.querySelector('b').textContent=`Explore Domain ${domain.number}: ${domain.name}`;
   eyebrow.textContent='Observation guide'; title.textContent=event.name; desc.textContent=event.summary;
   renderFacts([['Why this DSS domain',event.domainReason],['Why it may raise concern',event.factors],['Important mimics',event.mimics],['What to document',event.document],['Cross-domain note','DSS organizes this observation in a primary domain. One event may include features from several domains, and classification does not establish its cause.']]);
   setContext('Possible network association',`The highlighted ${ANATOMY[event.region]?.title || 'region'} is one plausible association, not a diagnosis.`);
@@ -72,6 +75,7 @@ function renderTimeline(){
 
 function renderSequence(){
   const step=SEQUENCE[sequenceIndex]; setTab('anatomy');
+  domainBadge.hidden=true;domainGuide.hidden=true;
   brain.className.baseVal=`brain-svg sequence-view sequence-stage-${sequenceIndex+1}`;
   $('sequenceStep').textContent=`Step ${sequenceIndex+1} of ${SEQUENCE.length}`; $('sequenceTitle').textContent=step.title; $('sequenceCopy').textContent=step.copy;
   for(let i=1;i<=3;i++)$('path'+i).classList.toggle('complete',i<=step.paths);

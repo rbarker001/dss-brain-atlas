@@ -1,8 +1,8 @@
 export const DSS_DOMAINS = {
-  seizure:{number:'01',name:'Seizure Events',short:'Observable events commonly associated with conventionally recognized seizure presentations.'},
-  movement:{number:'02',name:'Movement Changes',short:'New, abrupt, episodic, or stereotyped movement changes that warrant structured observation.'},
-  awareness:{number:'03',name:'Awareness Changes',short:'Sudden or episodic changes in responsiveness, engagement, communication, or awareness.'},
-  behavioral:{number:'04',name:'Behavioral Changes',short:'Abrupt, episodic, or stereotyped changes in behavior, affect, language, or purposeful activity.'}
+  seizure:{number:'01',name:'Seizure Events',short:'Observable events commonly associated with conventionally recognized seizure presentations.',guideUrl:'https://www.seagullhealth.global/domain-seizure-events.html'},
+  movement:{number:'02',name:'Movement Changes',short:'New, abrupt, episodic, or stereotyped movement changes that warrant structured observation.',guideUrl:'https://www.seagullhealth.global/domain-movement-changes.html'},
+  awareness:{number:'03',name:'Awareness Changes',short:'Sudden or episodic changes in responsiveness, engagement, communication, or awareness.',guideUrl:'https://www.seagullhealth.global/domain-awareness-changes.html'},
+  behavioral:{number:'04',name:'Behavioral Changes',short:'Abrupt, episodic, or stereotyped changes in behavior, affect, language, or purposeful activity.',guideUrl:'https://www.seagullhealth.global/domain-behavioral-changes.html'}
 };
 
 export const EVENTS = [
