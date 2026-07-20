@@ -3,6 +3,7 @@
 ## v0.12.1 — Proportion and labeling refinement
 
 - Reduced the cerebellum and its surface markings to better match the overall lateral-view proportions.
+- Joined the cerebellum directly to the posterior brain edge and simplified the brainstem into a connected shaft without a pointed crown.
 - Removed leader-line labels from the illustration and replaced them with an uncluttered, color-coded interactive legend.
 - Made legend items select their corresponding anatomy and adapt to lobe, internal, and sequence views.
 
