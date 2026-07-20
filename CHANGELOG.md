@@ -4,6 +4,7 @@
 
 - Reduced the cerebellum and its surface markings to better match the overall lateral-view proportions.
 - Joined the cerebellum directly to the posterior brain edge and simplified the brainstem into a connected shaft without a pointed crown.
+- Nested the cerebellum beneath the cerebral edge and softened the brainstem into a gently curved, rounded shaft at their shared junction.
 - Removed leader-line labels from the illustration and replaced them with an uncluttered, color-coded interactive legend.
 - Made legend items select their corresponding anatomy and adapt to lobe, internal, and sequence views.
 
