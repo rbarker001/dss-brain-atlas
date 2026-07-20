@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.13.0 — SeizureSafe handoff
+
+- Added a focused SeizureSafe next-action card to every observed-event result.
+- Connected Atlas recognition and event-specific documentation guidance to the existing Recognize, Respond, Document, Advocate protocol rather than creating a separate Atlas workflow.
+- Preserved the DSS Field Guide link as the domain-specific educational path.
+
 ## v0.12.1 — Proportion and labeling refinement
 
 - Reduced the cerebellum and its surface markings to better match the overall lateral-view proportions.

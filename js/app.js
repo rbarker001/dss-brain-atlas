@@ -7,6 +7,7 @@ const title=$('regionTitle'),desc=$('description'),eyebrow=$('eyebrow'),facts=$(
 const brain=$('brainSvg'),eventBox=$('events'),eventChooser=$('eventChooser'),explanation=$('explanation');
 const domainBadge=$('domainBadge');
 const domainGuide=$('domainGuide');
+const seizureSafeGuide=$('seizureSafeGuide');
 const regionLegend=$('regionLegend');
 let selectedRegion=null,selectedEvent=null,currentTab='anatomy',currentView='lobes',sequenceIndex=0;
 
@@ -38,6 +39,7 @@ function showAnatomy(id){
   brain.classList.remove('event-internal');
   domainBadge.hidden=true;
   domainGuide.hidden=true;
+  seizureSafeGuide.hidden=true;
   setTab('anatomy'); highlightRegion(id);
   eyebrow.textContent=item.eye; title.textContent=item.title; desc.textContent=item.desc; renderFacts(item.facts);
   setContext('Selected anatomy',`${item.title} is highlighted on the illustration. Choose another region to compare.`);
@@ -50,10 +52,11 @@ function showEvent(event){
   renderLegend(['hippocampus','thalamus','cingulate'].includes(event.region)?'internal':'lobes');
   document.querySelectorAll('.event').forEach(el=>el.classList.toggle('active',Number(el.dataset.i)===EVENTS.indexOf(event)));
   domainBadge.hidden=false;domainBadge.dataset.domain=event.domain;domainBadge.innerHTML=`<span>DSS Domain ${domain.number}</span><b>${domain.name}</b>`;
+  seizureSafeGuide.hidden=false;seizureSafeGuide.setAttribute('aria-label',`Continue to the SeizureSafe protocol for ${event.name}`);
   domainGuide.hidden=false;domainGuide.href=domain.guideUrl;domainGuide.setAttribute('aria-label',`Explore the ${domain.name} DSS Field Guide`);domainGuide.querySelector('b').textContent=`Explore Domain ${domain.number}: ${domain.name}`;
   eyebrow.textContent='Observation guide'; title.textContent=event.name; desc.textContent=event.summary;
-  renderFacts([['Why this DSS domain',event.domainReason],['Why it may raise concern',event.factors],['Important mimics',event.mimics],['What to document',event.document],['Cross-domain note','DSS organizes this observation in a primary domain. One event may include features from several domains, and classification does not establish its cause.']]);
-  setContext('Possible network association',`The highlighted ${ANATOMY[event.region]?.title || 'region'} is one plausible association, not a diagnosis.`);
+  renderFacts([['Why this DSS domain',event.domainReason],['Why it may raise concern',event.factors],['Important mimics',event.mimics],['What SeizureSafe needs documented',event.document],['Cross-domain note','DSS organizes this observation in a primary domain. One event may include features from several domains, and classification does not establish its cause.']]);
+  setContext('Recognition before response',`The highlighted ${ANATOMY[event.region]?.title || 'region'} is one plausible association, not a diagnosis. Continue into SeizureSafe for response, documentation, and follow-through.`);
 }
 
 function renderEvents(query=''){
@@ -96,6 +99,7 @@ function renderTimeline(){
 function renderSequence(){
   const step=SEQUENCE[sequenceIndex]; setTab('anatomy');
   domainBadge.hidden=true;domainGuide.hidden=true;
+  seizureSafeGuide.hidden=true;
   renderLegend('sequence');
   brain.className.baseVal=`brain-svg sequence-view sequence-stage-${sequenceIndex+1}`;
   $('sequenceStep').textContent=`Step ${sequenceIndex+1} of ${SEQUENCE.length}`; $('sequenceTitle').textContent=step.title; $('sequenceCopy').textContent=step.copy;
