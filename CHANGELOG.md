@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.10 — DSS domain mapping
+
+- Mapped every observed event to a primary Dementia Seizure Spectrum domain.
+- Added visible domain labels to the event chooser and selected-event explanation.
+- Added a concise classification rationale and preserved the framework's cross-domain and non-diagnostic caveat.
+
 ## v0.9.3 — Header optical alignment
 
 - Increased the DSS Brain Atlas product-title size and weight at desktop and mobile breakpoints.

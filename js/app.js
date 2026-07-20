@@ -1,10 +1,11 @@
 import { ANATOMY } from './data/anatomy.js';
-import { EVENTS } from './data/events.js';
+import { DSS_DOMAINS, EVENTS } from './data/events.js';
 import { SEQUENCE } from './data/sequence.js';
 
 const $=id=>document.getElementById(id);
 const title=$('regionTitle'),desc=$('description'),eyebrow=$('eyebrow'),facts=$('facts'),context=$('contextBanner');
 const brain=$('brainSvg'),eventBox=$('events'),eventChooser=$('eventChooser'),explanation=$('explanation');
+const domainBadge=$('domainBadge');
 let selectedRegion=null,selectedEvent=null,currentTab='anatomy',currentView='lobes',sequenceIndex=0;
 
 function renderFacts(items){facts.innerHTML=items.map(([label,copy])=>`<div class="fact"><b>${label}</b><span>${copy}</span></div>`).join('');}
@@ -22,24 +23,27 @@ function setTab(tab){
 function showAnatomy(id){
   const item=ANATOMY[id]; if(!item)return;
   brain.classList.remove('event-internal');
+  domainBadge.hidden=true;
   setTab('anatomy'); highlightRegion(id);
   eyebrow.textContent=item.eye; title.textContent=item.title; desc.textContent=item.desc; renderFacts(item.facts);
   setContext('Selected anatomy',`${item.title} is highlighted on the illustration. Choose another region to compare.`);
 }
 
 function showEvent(event){
+  const domain=DSS_DOMAINS[event.domain];
   selectedEvent=event; setTab('event'); highlightRegion(event.region);
   brain.classList.toggle('event-internal',['hippocampus','thalamus','cingulate'].includes(event.region));
   document.querySelectorAll('.event').forEach(el=>el.classList.toggle('active',Number(el.dataset.i)===EVENTS.indexOf(event)));
+  domainBadge.hidden=false;domainBadge.dataset.domain=event.domain;domainBadge.innerHTML=`<span>DSS Domain ${domain.number}</span><b>${domain.name}</b>`;
   eyebrow.textContent='Observation guide'; title.textContent=event.name; desc.textContent=event.summary;
-  renderFacts([['Why it may raise concern',event.factors],['Important mimics',event.mimics],['What to document',event.document],['Clinical boundary','This association is a prompt for careful observation—not proof of seizure onset.']]);
+  renderFacts([['Why this DSS domain',event.domainReason],['Why it may raise concern',event.factors],['Important mimics',event.mimics],['What to document',event.document],['Cross-domain note','DSS organizes this observation in a primary domain. One event may include features from several domains, and classification does not establish its cause.']]);
   setContext('Possible network association',`The highlighted ${ANATOMY[event.region]?.title || 'region'} is one plausible association, not a diagnosis.`);
 }
 
 function renderEvents(query=''){
   const q=query.trim().toLowerCase();
   const matches=EVENTS.filter(event=>(event.name+' '+event.summary+' '+event.mimics).toLowerCase().includes(q));
-  eventBox.innerHTML=matches.length?matches.map(event=>`<button class="event${event===selectedEvent?' active':''}" data-i="${EVENTS.indexOf(event)}">${event.name}</button>`).join(''):'<p class="empty-state">No matching observed events.</p>';
+  eventBox.innerHTML=matches.length?matches.map(event=>{const domain=DSS_DOMAINS[event.domain];return `<button class="event${event===selectedEvent?' active':''}" data-domain="${event.domain}" data-i="${EVENTS.indexOf(event)}"><span class="event-domain">D${domain.number} · ${domain.name}</span><span class="event-name">${event.name}</span></button>`;}).join(''):'<p class="empty-state">No matching observed events.</p>';
   eventBox.querySelectorAll('.event').forEach(button=>button.addEventListener('click',()=>showEvent(EVENTS[Number(button.dataset.i)])));
 }
 
