@@ -45,8 +45,14 @@ function showEvent(event){
 
 function renderEvents(query=''){
   const q=query.trim().toLowerCase();
-  const matches=EVENTS.filter(event=>(event.name+' '+event.summary+' '+event.mimics).toLowerCase().includes(q));
-  eventBox.innerHTML=matches.length?matches.map(event=>{const domain=DSS_DOMAINS[event.domain];return `<button class="event${event===selectedEvent?' active':''}" data-domain="${event.domain}" data-i="${EVENTS.indexOf(event)}"><span class="event-domain">D${domain.number} · ${domain.name}</span><span class="event-name">${event.name}</span></button>`;}).join(''):'<p class="empty-state">No matching observed events.</p>';
+  const matches=EVENTS.filter(event=>(event.name+' '+event.summary+' '+event.mimics).toLowerCase().includes(q)).sort((a,b)=>DSS_DOMAINS[a.domain].number.localeCompare(DSS_DOMAINS[b.domain].number));
+  const groups=Object.entries(DSS_DOMAINS).sort(([,a],[,b])=>a.number.localeCompare(b.number)).map(([domainKey,domain])=>{
+    const domainEvents=matches.filter(event=>event.domain===domainKey);
+    if(!domainEvents.length)return '';
+    const buttons=domainEvents.map(event=>`<button class="event${event===selectedEvent?' active':''}" data-domain="${event.domain}" data-i="${EVENTS.indexOf(event)}"><span class="event-name">${event.name}</span></button>`).join('');
+    return `<section class="event-group" aria-labelledby="event-domain-${domain.number}"><h3 id="event-domain-${domain.number}"><span>Domain ${domain.number}</span>${domain.name}</h3><div class="event-group-items">${buttons}</div></section>`;
+  }).join('');
+  eventBox.innerHTML=groups||'<p class="empty-state">No matching observed events.</p>';
   eventBox.querySelectorAll('.event').forEach(button=>button.addEventListener('click',()=>showEvent(EVENTS[Number(button.dataset.i)])));
 }
 

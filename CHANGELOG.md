@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.11.1 — Ordered event domains
+
+- Grouped observed-event choices under clear DSS domain headings.
+- Ordered the groups consistently from Domain 01 through Domain 04, including filtered search results.
+
 ## v0.11 — Field Guide connections
 
 - Added a focused DSS Field Guide call to action to every observed-event result.
