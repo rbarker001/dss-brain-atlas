@@ -7,11 +7,23 @@ const title=$('regionTitle'),desc=$('description'),eyebrow=$('eyebrow'),facts=$(
 const brain=$('brainSvg'),eventBox=$('events'),eventChooser=$('eventChooser'),explanation=$('explanation');
 const domainBadge=$('domainBadge');
 const domainGuide=$('domainGuide');
+const regionLegend=$('regionLegend');
 let selectedRegion=null,selectedEvent=null,currentTab='anatomy',currentView='lobes',sequenceIndex=0;
+
+const REGION_LEGENDS={
+  lobes:[['frontal','Frontal'],['parietal','Parietal'],['temporal','Temporal'],['occipital','Occipital'],['cerebellum','Cerebellum'],['brainstem','Brainstem']],
+  internal:[['hippocampus','Hippocampus'],['thalamus','Thalamus'],['cingulate','Cingulate network']]
+};
 
 function renderFacts(items){facts.innerHTML=items.map(([label,copy])=>`<div class="fact"><b>${label}</b><span>${copy}</span></div>`).join('');}
 function setContext(label,copy){context.innerHTML=`<span>${label}</span>${copy}`;}
-function highlightRegion(id){document.querySelectorAll('.region').forEach(el=>el.classList.toggle('active',el.dataset.region===id));selectedRegion=id;}
+function highlightRegion(id){document.querySelectorAll('.region').forEach(el=>el.classList.toggle('active',el.dataset.region===id));regionLegend.querySelectorAll('.legend-region').forEach(el=>el.classList.toggle('active',el.dataset.region===id));selectedRegion=id;}
+function renderLegend(view){
+  const items=REGION_LEGENDS[view]; regionLegend.hidden=!items;
+  if(!items){regionLegend.innerHTML='';return;}
+  regionLegend.innerHTML=items.map(([id,label])=>`<button class="legend-region${selectedRegion===id?' active':''}" data-region="${id}"><span class="legend-swatch" aria-hidden="true"></span>${label}</button>`).join('');
+  regionLegend.querySelectorAll('.legend-region').forEach(button=>button.addEventListener('click',()=>showAnatomy(button.dataset.region)));
+}
 function setTab(tab){
   currentTab=tab;
   $('anatomyTab').classList.toggle('active',tab==='anatomy');
@@ -35,6 +47,7 @@ function showEvent(event){
   const domain=DSS_DOMAINS[event.domain];
   selectedEvent=event; setTab('event'); highlightRegion(event.region);
   brain.classList.toggle('event-internal',['hippocampus','thalamus','cingulate'].includes(event.region));
+  renderLegend(['hippocampus','thalamus','cingulate'].includes(event.region)?'internal':'lobes');
   document.querySelectorAll('.event').forEach(el=>el.classList.toggle('active',Number(el.dataset.i)===EVENTS.indexOf(event)));
   domainBadge.hidden=false;domainBadge.dataset.domain=event.domain;domainBadge.innerHTML=`<span>DSS Domain ${domain.number}</span><b>${domain.name}</b>`;
   domainGuide.hidden=false;domainGuide.href=domain.guideUrl;domainGuide.setAttribute('aria-label',`Explore the ${domain.name} DSS Field Guide`);domainGuide.querySelector('b').textContent=`Explore Domain ${domain.number}: ${domain.name}`;
@@ -62,6 +75,7 @@ function setView(view){
   document.querySelectorAll('.mode').forEach(button=>{const active=button.dataset.view===view;button.classList.toggle('active',active);button.setAttribute('aria-pressed',active);});
   brain.classList.toggle('internal-view',view==='internal'); brain.classList.toggle('sequence-view',view==='sequence');
   $('sequencePanel').hidden=view!=='sequence';
+  renderLegend(view);
   if(view==='lobes'){
     $('viewCue').innerHTML='<b>Lobe view</b><span>Select any colored region.</span>';
     setTab('anatomy'); showAnatomy(selectedRegion && !['hippocampus','thalamus','cingulate'].includes(selectedRegion)?selectedRegion:'frontal');
@@ -82,6 +96,7 @@ function renderTimeline(){
 function renderSequence(){
   const step=SEQUENCE[sequenceIndex]; setTab('anatomy');
   domainBadge.hidden=true;domainGuide.hidden=true;
+  renderLegend('sequence');
   brain.className.baseVal=`brain-svg sequence-view sequence-stage-${sequenceIndex+1}`;
   $('sequenceStep').textContent=`Step ${sequenceIndex+1} of ${SEQUENCE.length}`; $('sequenceTitle').textContent=step.title; $('sequenceCopy').textContent=step.copy;
   for(let i=1;i<=3;i++)$('path'+i).classList.toggle('complete',i<=step.paths);
@@ -110,4 +125,5 @@ $('nextStep').addEventListener('click',()=>{if(sequenceIndex<SEQUENCE.length-1){
 $('reset').addEventListener('click',()=>{selectedRegion=null;selectedEvent=null;$('search').value='';renderEvents();setView('lobes');});
 
 renderEvents();
+renderLegend('lobes');
 renderFacts([['How to begin','Choose a brain view above, select a colored region, or open Observed events.'],['Clinical boundary','This tool supports observation and education. It does not diagnose seizures or epilepsy.']]);

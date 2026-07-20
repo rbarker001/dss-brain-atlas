@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.12.1 — Proportion and labeling refinement
+
+- Reduced the cerebellum and its surface markings to better match the overall lateral-view proportions.
+- Removed leader-line labels from the illustration and replaced them with an uncluttered, color-coded interactive legend.
+- Made legend items select their corresponding anatomy and adapt to lobe, internal, and sequence views.
+
 ## v0.12 — Anatomical illustration refinement
 
 - Redrew the lateral lobe boundaries around a more credible central sulcus and lateral fissure relationship.

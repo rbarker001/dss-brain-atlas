@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <title>DSS Brain Atlas | Seagull Health</title>
 <meta name="description" content="Explore the Dementia Seizure Spectrum by connecting observed events with possible brain-network associations, anatomy, and an explained example sequence." />
-  <link rel="stylesheet" href="css/styles.css?v=13" />
+  <link rel="stylesheet" href="css/styles.css?v=14" />
 </head>
 <body>
 <header class="site-header">
@@ -49,11 +49,11 @@
             <path class="region outer-region cerebral-region" data-region="parietal" fill="url(#parG)" stroke="#285d7c" stroke-width="4" d="M464 79C555 70 652 91 728 139C752 154 774 174 791 197C777 246 761 292 746 331C738 351 729 370 720 391C680 397 640 392 600 382C559 371 520 354 480 339C460 332 441 326 424 302C432 278 442 255 449 229C462 184 469 132 464 79Z"/>
             <path class="region outer-region cerebral-region" data-region="occipital" fill="url(#occG)" stroke="#94661c" stroke-width="4" d="M791 197C834 219 871 243 890 270C913 333 898 402 852 452C824 482 790 494 755 475C735 454 722 425 720 391C729 370 738 351 746 331C761 292 777 246 791 197Z"/>
             <path class="region outer-region cerebral-region" data-region="temporal" fill="url(#tempG)" stroke="#2e6844" stroke-width="4" d="M204 448C217 420 244 392 274 379C308 365 339 360 372 351C397 344 416 326 424 302C441 326 460 332 480 339C520 354 559 371 600 382C640 392 680 397 720 391C722 425 735 454 755 475C720 493 683 503 646 507C621 510 604 526 597 551C516 568 429 551 355 516C291 484 244 463 204 448Z"/>
-            <path class="region outer-region" data-region="cerebellum" fill="url(#cerG)" stroke="#574078" stroke-width="4" d="M668 488C718 459 800 458 852 496C899 531 910 586 878 625C845 666 777 679 720 653C674 632 648 593 652 548C654 524 660 504 668 488Z"/>
+            <path class="region outer-region" data-region="cerebellum" fill="url(#cerG)" stroke="#574078" stroke-width="4" d="M684 510C724 483 786 483 828 510C865 534 875 574 853 605C829 638 780 648 739 631C704 617 681 589 681 555C681 537 681 520 684 510Z"/>
             <path class="region outer-region" data-region="brainstem" fill="url(#stemG)" stroke="#725735" stroke-width="4" d="M575 492C598 489 620 502 631 523C640 540 654 550 661 565C670 585 660 605 642 621C627 634 621 654 622 680L623 716L566 716L568 680C570 653 563 638 549 621C534 602 531 580 539 560C545 545 557 533 564 516C568 506 570 498 575 492Z"/>
 
             <g class="gyri"><path d="M151 289C178 247 214 237 250 250C278 260 300 251 315 225"/><path d="M133 338C181 322 224 328 253 355C278 378 315 383 343 366"/><path d="M169 181C206 143 259 133 302 153C338 170 372 162 396 132"/><path d="M240 95C274 115 293 139 295 173"/><path d="M350 89C384 115 399 147 391 183"/><path d="M421 92C454 125 460 159 444 196"/><path d="M485 117C518 143 531 174 519 204"/><path d="M570 111C609 131 631 162 624 198"/><path d="M645 116C684 143 699 176 684 211"/><path d="M725 157C755 188 762 225 749 258"/><path d="M795 211C831 240 842 276 828 309"/><path d="M842 293C867 325 861 359 840 386"/><path d="M791 433C817 442 841 433 856 408"/><path d="M306 448C344 462 382 462 414 448"/><path d="M420 493C461 507 505 507 541 492"/></g>
-            <g class="gyri cerebellar"><path d="M688 518C738 493 813 498 859 532"/><path d="M673 545C727 520 819 528 877 562"/><path d="M667 577C730 548 821 559 879 590"/><path d="M677 610C739 585 817 594 858 620"/><path d="M705 638C753 623 808 626 836 640"/></g>
+            <g class="gyri cerebellar"><path d="M700 527C738 506 791 508 827 530"/><path d="M689 551C732 529 800 534 849 558"/><path d="M691 577C741 552 806 560 853 583"/><path d="M706 604C750 585 805 590 837 608"/><path d="M735 626C769 615 807 617 829 628"/></g>
 
             <g id="internal" class="internal-layer">
               <path class="cutaway-window" d="M322 170C403 113 526 100 635 132C711 154 765 203 787 269C804 320 792 375 753 414C714 453 651 470 585 461C509 451 441 414 389 363C342 317 309 256 309 207C309 190 313 178 322 170Z"/>
@@ -75,21 +75,8 @@
               <g id="recoveryMark" class="recovery-mark"><circle cx="650" cy="410" r="135"/><circle cx="650" cy="410" r="95"/><text x="650" y="418">RECOVERY</text></g>
             </g>
 
-            <g id="outerLabels" class="labels">
-              <g><line x1="272" y1="240" x2="205" y2="172"/><rect x="95" y="135" width="126" height="42"/><text x="112" y="164">Frontal</text></g>
-              <g><line x1="625" y1="213" x2="650" y2="137"/><rect x="593" y="95" width="132" height="42"/><text x="610" y="125">Parietal</text></g>
-              <g><line x1="607" y1="474" x2="586" y2="535"/><rect x="486" y="536" width="145" height="42"/><text x="503" y="566">Temporal</text></g>
-              <g><line x1="820" y1="323" x2="897" y2="304"/><rect x="833" y="261" width="150" height="42"/><text x="851" y="291">Occipital</text></g>
-              <g><line x1="804" y1="555" x2="910" y2="568"/><rect x="795" y="570" width="180" height="42"/><text x="812" y="599">Cerebellum</text></g>
-              <g><line x1="616" y1="631" x2="500" y2="654"/><rect x="374" y="642" width="142" height="42"/><text x="391" y="671">Brainstem</text></g>
-            </g>
-
-            <g id="internalLabels" class="labels internal-labels">
-              <g><line x1="520" y1="449" x2="386" y2="520"/><rect x="212" y="496" width="185" height="42"/><text x="229" y="526">Hippocampus</text></g>
-              <g><line x1="583" y1="348" x2="736" y2="352"/><rect x="730" y="328" width="135" height="42"/><text x="747" y="358">Thalamus</text></g>
-              <g><line x1="591" y1="191" x2="742" y2="170"/><rect x="704" y="128" width="270" height="48"/><text x="722" y="160">Cingulate network</text></g>
-            </g>
           </svg>
+          <div class="region-legend" id="regionLegend" aria-label="Brain region legend"></div>
         </div>
 
         <div id="sequencePanel" class="sequence-panel" hidden>
@@ -140,6 +127,6 @@
   <div class="footer-meta"><span>© 2026 Seagull Health. All rights reserved.</span><span>DSS Brain Atlas is an educational, non-diagnostic prototype.</span></div>
 </footer>
 
-<script type="module" src="js/app.js?v=13"></script>
+<script type="module" src="js/app.js?v=14"></script>
 </body>
 </html>
