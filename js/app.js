@@ -1,6 +1,6 @@
 import { ANATOMY } from './data/anatomy.js';
 import { DSS_DOMAINS, EVENTS } from './data/events.js';
-import { SEQUENCE } from './data/sequence.js';
+import { SEQUENCE } from './data/sequence.js?v=16';
 
 const $=id=>document.getElementById(id);
 const title=$('regionTitle'),desc=$('description'),eyebrow=$('eyebrow'),facts=$('facts'),context=$('contextBanner');
